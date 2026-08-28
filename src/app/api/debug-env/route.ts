@@ -10,11 +10,13 @@ export async function GET(req: NextRequest) {
   }
 
   const relevantKeys = Object.keys(process.env).filter(
-    (k) => k.includes("BLOB") || k.includes("DATABASE") || k.includes("POSTGRES")
+    (k) => k.includes("BLOB") || k.includes("DATABASE") || k.includes("POSTGRES") || k.includes("OIDC")
   );
 
   return NextResponse.json({
     hasBlobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+    hasBlobStoreId: Boolean(process.env.BLOB_STORE_ID),
+    hasOidcToken: Boolean(process.env.VERCEL_OIDC_TOKEN),
     hasDatabaseUrl: Boolean(process.env.DATABASE_URL),
     relevantEnvKeys: relevantKeys,
     vercelEnv: process.env.VERCEL_ENV || null,

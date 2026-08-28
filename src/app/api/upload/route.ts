@@ -25,7 +25,11 @@ export async function POST(req: NextRequest) {
   const ext = (file.type.split("/")[1] || "jpg").replace("jpeg", "jpg");
   const filename = `${uid}-${Date.now()}-${crypto.randomBytes(4).toString("hex")}.${ext}`;
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  // BLOB_READ_WRITE_TOKEN is the classic static-token auth path. Newer Blob
+  // store connections instead rely on Vercel's OIDC federation (no static
+  // token env var at all), which @vercel/blob's `put()` picks up on its own
+  // as long as BLOB_STORE_ID is present — so check for either.
+  if (process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID) {
     const { put } = await import("@vercel/blob");
     const blob = await put(`listings/${filename}`, file, {
       access: "public",
