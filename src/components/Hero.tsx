@@ -1,5 +1,5 @@
-import Image from "next/image";
 import SearchBar from "./SearchBar";
+import HeroSlideshow from "./HeroSlideshow";
 import { CheckBadgeIcon, ChatIcon, UsersIcon } from "./icons";
 
 export default function Hero() {
@@ -43,17 +43,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--brand-green-50)] to-[color-mix(in_srgb,var(--brand-gold)_16%,white)]" />
-          <Image
-            src="/logo-icon.png"
-            alt="Deris — people, skills, opportunities"
-            width={350}
-            height={381}
-            className="relative w-3/5 drop-shadow-xl"
-            priority
-          />
-        </div>
+        <HeroSlideshow />
       </div>
 
       <svg
